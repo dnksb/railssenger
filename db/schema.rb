@@ -16,24 +16,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_140751) do
 
   create_table "messages", force: :cascade do |t|
     t.text "text"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "room_to_messages", force: :cascade do |t|
-    t.bigint "room_id"
-    t.bigint "message_id"
+    t.bigint "room_id", null: false
+    t.bigint "message_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_room_to_messages_on_message_id"
+    t.index ["room_id"], name: "index_room_to_messages_on_room_id"
   end
 
   create_table "room_to_users", force: :cascade do |t|
-    t.bigint "room_id"
-    t.bigint "user_id"
+    t.bigint "room_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_room_to_users_on_room_id"
+    t.index ["user_id"], name: "index_room_to_users_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -51,4 +55,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_140751) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "messages", "users"
+  add_foreign_key "room_to_messages", "messages"
+  add_foreign_key "room_to_messages", "rooms"
+  add_foreign_key "room_to_users", "rooms"
+  add_foreign_key "room_to_users", "users"
 end

@@ -8,7 +8,7 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
 gem "sprockets-rails"
 
-gem 'faker', '~> 1.6', '>= 1.6.6'
+gem 'faker'
 
 gem "pg", "~> 1.1"
 
